@@ -10,8 +10,8 @@ namespace MareAssetDetector
         {
             if (args.Length == 0)
             {
-                Logger.LogLineError("No map and game passed.");
-                Logger.LogLine("Usage: bsppack <map bsp> <game folder>" +
+                Logger.LogLineError("No map and game folder passed.");
+                Logger.LogLine("Usage: assetdetector <map bsp> <game folder>" +
                                     "\n\t-o <output file path> \t-Output bspzip ready packing text in a different file than the default 'detected_assets.txt' at the root of this program." +
                                     "\n\t-verbose\t- Print more information." +
                                     "\n\t-renamenav"+
