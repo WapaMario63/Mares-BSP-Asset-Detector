@@ -6,7 +6,7 @@ Fun fact: This can detect mare pupil textures properly unlike CompilePal! At lea
 *NOTE: This program is currently considered a beta and not stable.*
 
 ## Usage
-Simply pass your map's .BSP and the game's folder you're using assets from (e.g. for TF2, the 'tf' folder).
+Simply pass your unpacked map's .BSP and the game's folder you're using assets from (e.g. for TF2, the 'tf' folder).
 ```
 AssetDetector "<map BSP>" "<game folder>"
 ```
