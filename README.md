@@ -1,8 +1,6 @@
 # Mare's BSP Asset Detector
 Terminal application that detects custom assets inside Source Engine maps that need packing and writes them all in a file list ready to use with Valve's bspzip. Code is based and taken from [CompilePal](https://github.com/ruarai/CompilePal), converted to be a simple CLI application. This is designed to be used by another program (Mare's BSP Compiler) and not directly, but its functional by itself. Also, this program primarily targets Linux users, so it has changes meant to work for it best, but it might probably work on Windows, althought you are better off using CompilePal itself instead of using this.
 
-Fun fact: This can detect mare pupil textures properly unlike CompilePal! At least that I remember from the last release version (V028).
-
 *NOTE: This program is currently considered a beta and not stable.*
 
 ## Usage
