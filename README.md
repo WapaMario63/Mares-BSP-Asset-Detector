@@ -6,18 +6,23 @@ Terminal application that detects custom assets inside Source Engine maps that n
 ## Usage
 Simply pass your unpacked map's .BSP and the game's folder you're using assets from (e.g. for TF2, the 'tf' folder).
 ```
-assetdetector "<map BSP>" "<game folder>"
+assetdetector <map BSP> <game folder>
 ```
 #### Optional Arguments:
-* `-o "<output file>"` -- Output the filelist with a different name to a different directory instead of the default `detected_assets.txt` in the program's root.
+* `-o <output file>` -- Output the filelist with a different name to a different directory instead of the default `detected_assets.txt` in the program's root.
 * `-verbose` -- Verbose output.
 * `-renamenav`
 * `-no-swvtx` -- Do not include .sw.vtx files.
+* `-keys-dir <keys folder>` -- Use a different `keys` folder.
 
 ## Compiling
-Project was built using .NET 8.0, but I'm pretty sure you can use .NET 6.0 at the earliest. Make sure to have `dotnet` installed for whichever Linux distro you use.
+Have .NET 6.0+ installed. Make sure to have the `dotnet` package installed for whichever Linux distro you use.
 
-Use one of these commands in the `src` directory.
+Clone the repository
+```
+$ git clone https://github.com/WapaMario63/Mares-BSP-Asset-Detector
+```
+Use one of these commands within the `src` directory.
 ```
 dotnet build           # Debug build
 dotnet publish         # Release build
