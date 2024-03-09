@@ -24,5 +24,7 @@ jobs:
       run: dotnet restore ./src/assetdetector.csproj
     - name: Build
       run: dotnet build ./src/assetdetector.csproj --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+    
+# Not using automatic testing for now until a map (.BSP) is provided in the repo for this to use.
+#    - name: Test
+#      run: dotnet test --no-build --verbosity normal
