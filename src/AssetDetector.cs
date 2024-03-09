@@ -15,7 +15,6 @@ namespace MareAssetDetector
     // CompilePal's Pack.cs rewritten to ONLY detect files and write to a text file.
     class AssetDetector
     {
-        private const string KEYS_FOLDER = "keys";
         private string mGameFolder;
         private string mBspPath;
         private List<string> mSourceDirectories = new List<string>();
@@ -29,10 +28,7 @@ namespace MareAssetDetector
         {
             mGameFolder = gameFolder;
             mBspPath = bspPath;
-            if (output != null)
-            {
-                mOutputFile = output;
-            }
+            mOutputFile = Context.OutputFile;
         }
 
         public Result Run(CancellationToken cancellationToken)
@@ -47,13 +43,13 @@ namespace MareAssetDetector
                 }
 
                 Keys.vmtTextureKeyWords =
-                    File.ReadAllLines(System.IO.Path.Combine(KEYS_FOLDER, "texturekeys.txt")).ToList();
+                    File.ReadAllLines(System.IO.Path.Combine(Context.KeysFolder, "texturekeys.txt")).ToList();
                 Keys.vmtMaterialKeyWords =
-                    File.ReadAllLines(System.IO.Path.Combine(KEYS_FOLDER, "materialkeys.txt")).ToList();
-                Keys.vmfSoundKeys = File.ReadAllLines(System.IO.Path.Combine(KEYS_FOLDER, "vmfsoundkeys.txt")).ToList();
-                Keys.vmfMaterialKeys = File.ReadAllLines(System.IO.Path.Combine(KEYS_FOLDER, "vmfmaterialkeys.txt"))
+                    File.ReadAllLines(System.IO.Path.Combine(Context.KeysFolder, "materialkeys.txt")).ToList();
+                Keys.vmfSoundKeys = File.ReadAllLines(System.IO.Path.Combine(Context.KeysFolder, "vmfsoundkeys.txt")).ToList();
+                Keys.vmfMaterialKeys = File.ReadAllLines(System.IO.Path.Combine(Context.KeysFolder, "vmfmaterialkeys.txt"))
                     .ToList();
-                Keys.vmfModelKeys = File.ReadAllLines(System.IO.Path.Combine(KEYS_FOLDER, "vmfmodelkeys.txt")).ToList();
+                Keys.vmfModelKeys = File.ReadAllLines(System.IO.Path.Combine(Context.KeysFolder, "vmfmodelkeys.txt")).ToList();
 
                 Logger.LogLine("Finding sources of game assets...");
                 mSourceDirectories = GetSourceDirectories(mGameFolder);
@@ -74,7 +70,7 @@ namespace MareAssetDetector
                 }
                 catch (CompressedBSPException)
                 {
-                    Logger.LogLineError("BSP is compressed and cannot detected assets this way. Please decompress first with bspzip.");
+                    Logger.LogLineError("BSP is compressed and cannot detect assets this way. Please decompress first with bspzip.");
                     return Result.BSP_COMPRESSED;
                 }
 

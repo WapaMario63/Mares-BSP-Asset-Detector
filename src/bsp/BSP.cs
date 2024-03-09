@@ -26,7 +26,7 @@ namespace MareAssetDetector.Pack
 
         public List<List<Tuple<string, string>>> entityListArrayForm { get; private set; }
 
-        public List<int>[] modelSkinList { get; private set; }
+        public List<int>[]? modelSkinList { get; private set; }
 
         public List<string> ModelList { get; private set; }
 
@@ -112,28 +112,44 @@ namespace MareAssetDetector.Pack
                         throw new CompressedBSPException();
                     }
 
-
+                    // Intialization moved into constructor to silence warning.
+                    entityList = new List<Dictionary<string, string>>();
+                    entityListArrayForm = new List<List<Tuple<string, string>>>();
                     buildEntityList(bsp, reader);
 
+                    EntModelList = new List<string>();
                     buildEntModelList();
+
+                    ModelList = new List<string>();
                     buildModelList(bsp, reader);
 
+                    ParticleList = new List<string>();
                     buildParticleList();
 
+                    EntTextureList = new List<string>();
                     buildEntTextureList();
+
+                    TextureList = new List<string>();
                     buildTextureList(bsp, reader);
 
+                    EntSoundList = new List<string>();
                     buildEntSoundList();
 
+                    MiscList = new List<string>();
                     buildMiscList();
                 }
             }
+
+            radardds = new List<KeyValuePair<string, string>>();
+            languages = new List<KeyValuePair<string, string>>();
+            VehicleScriptList = new List<KeyValuePair<string, string>>();
+            EffectScriptList = new List<KeyValuePair<string, string>>();
+            vscriptList = new List<string>();
+            PanoramaMapBackgrounds = new List<KeyValuePair<string, string>>();
         }
 
         public void buildEntityList(FileStream bsp, BinaryReader reader)
         {
-            entityList = new List<Dictionary<string, string>>();
-            entityListArrayForm = new List<List<Tuple<string, string>>>();
 
             bsp.Seek(offsets[0].Key, SeekOrigin.Begin);
             byte[] ent = reader.ReadBytes(offsets[0].Value);
@@ -190,7 +206,6 @@ namespace MareAssetDetector.Pack
 
             string mapname = bsp.Name.Split('\\').Last().Split('.')[0];
 
-            TextureList = new List<string>();
             bsp.Seek(offsets[43].Key, SeekOrigin.Begin);
             TextureList = new List<string>(Encoding.ASCII.GetString(reader.ReadBytes(offsets[43].Value)).Split('\0'));
             for (int i = 0; i < TextureList.Count; i++)
@@ -354,7 +369,7 @@ namespace MareAssetDetector.Pack
             }
 
             // format and add materials
-            EntTextureList = new List<string>();
+            //EntTextureList = new List<string>();
             foreach (string material in materials)
             {
                 string materialpath = material;
@@ -369,7 +384,7 @@ namespace MareAssetDetector.Pack
         {
             // builds the list of models that are from prop_static
 
-            ModelList = new List<string>();
+            
             // getting information on the gamelump
             int propStaticId = 0;
             bsp.Seek(offsets[35].Key, SeekOrigin.Begin);
@@ -436,8 +451,6 @@ namespace MareAssetDetector.Pack
         public void buildEntModelList()
         {
             // builds the list of models referenced in entities
-
-            EntModelList = new List<string>();
 	        foreach (Dictionary<string, string> ent in entityList)
 	        {
 				foreach (KeyValuePair<string, string> prop in ent)
@@ -485,7 +498,6 @@ namespace MareAssetDetector.Pack
         public void buildEntSoundList()
         {
             // builds the list of sounds referenced in entities
-            EntSoundList = new List<string>();
 			foreach (Dictionary<string, string> ent in entityList)
 				foreach (KeyValuePair<string, string> prop in ent)
 				{
@@ -527,7 +539,6 @@ namespace MareAssetDetector.Pack
         // color correction, etc.
         public void buildMiscList()
         {
-            MiscList = new List<string>();
 
             // find color correction files
             foreach (Dictionary<string, string> cc in entityList.Where(item => item["classname"].StartsWith("color_correction")))
@@ -555,7 +566,6 @@ namespace MareAssetDetector.Pack
 
         public void buildParticleList()
         {
-            ParticleList = new List<string>();
             foreach (Dictionary<string, string> ent in entityList)
                 foreach (KeyValuePair<string, string> particle in ent)
                      if (particle.Key.ToLower() == "effect_name")

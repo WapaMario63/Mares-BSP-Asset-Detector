@@ -23,7 +23,8 @@ namespace MareAssetDetector
     {
         public static string BSPPath { get; set; } = "";
         public static string GameFolder { get; set; } = "";
-        public static string OutputFiles { get; set; } = "./detected_assets.txt";
+        public static string OutputFile { get; set; } = "./detected_assets.txt";
+        public static string KeysFolder {get; set;} = "./keys";
         public static bool Verbose = false;
         public static bool RenameNav = false;
         public static bool noSwVtx = false;

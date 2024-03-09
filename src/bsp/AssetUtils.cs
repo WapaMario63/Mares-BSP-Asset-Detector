@@ -987,8 +987,6 @@ namespace MareAssetDetector.Pack
                 else
                     return split[0].Trim(new char[] {'\"', '\t'});
             }
-
-            return line;
         }
     }
 }

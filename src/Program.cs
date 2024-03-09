@@ -15,7 +15,8 @@ namespace MareAssetDetector
                                     "\n\t-o <output file path> \t-Output bspzip ready packing text in a different file than the default 'detected_assets.txt' at the root of this program." +
                                     "\n\t-verbose\t- Print more information." +
                                     "\n\t-renamenav"+
-                                    "\n\t-no-swvtx\t- Do not include .sw.vtx files in the packing file.");
+                                    "\n\t-no-swvtx\t- Do not include .sw.vtx files in the packing file." +
+                                    "\n\t-keys-dir <keys directory>\t - Use a different folder to search for material keys.");
                 return (int)Result.INSUFFICIENT_ARGUMENTS;
             }
 
@@ -30,7 +31,7 @@ namespace MareAssetDetector
                 switch(args[i])
                 {
                     case "-o":
-                        Context.OutputFiles = args[i+1];
+                        Context.OutputFile = args[i+1];
                         break;
                     case "-verbose":
                         Context.Verbose = true;
@@ -41,15 +42,18 @@ namespace MareAssetDetector
                     case "-no-swvtx":
                         Context.noSwVtx = true;
                         break;
+                    case "-keys-dir":
+                        Context.KeysFolder = args[i+1];
+                        break;
                 }
             }
 
-            return Detect(Context.BSPPath, Context.GameFolder, Context.OutputFiles);
+            return Detect(Context.BSPPath, Context.GameFolder);
         }
 
-        public static int Detect(string bspPath, string gameFolder, string outputPath)
+        public static int Detect(string bspPath, string gameFolder)
         {
-            AssetDetector detector = new AssetDetector(gameFolder, bspPath, outputPath);
+            AssetDetector detector = new AssetDetector(gameFolder, bspPath);
             CancellationTokenSource cancelSource = new CancellationTokenSource();
 
             Result result = detector.Run(cancelSource.Token);
